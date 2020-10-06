@@ -24,7 +24,7 @@ Then, remove whitespace from headers.
 First create index:
 
     #swarm --module bwa/0.7.17 --partition=quick -f index.sh
-    cd Ggal_PTC_exon; bwa index -p Ggal_PTC_exon Ggal_PTC_exon_sequences_v2.fasta
+    bwa index -p Ggal_PTC_exon Ggal_PTC_exon_sequences_v2.fasta
 
 Map single-end reads:
 
@@ -38,7 +38,7 @@ Map paired-end reads:
 
 
 ## Masking and creating contigs:	Samtools v1.10; Bedtools v2.29.2
-Altered from Ryan Schott's script (Schott RK, et al. 2017. Targeted capture of complete coding regions across divergent species. Genome Biology and Evolution 9: 398–414.).
+Altered from Ryan Schott's script (Schott RK, et al. 2017. Targeted capture of complete coding regions across divergent species. Genome Biology and Evolution 9: 398–414.). Need to have both "python depth_of_coverage_impl2.py" and "depth_of_coverage.py" in the same spot.
 
     module load samtools/1.10
     module load bedtools/2.29.2
