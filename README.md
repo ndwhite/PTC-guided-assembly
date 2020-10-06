@@ -47,9 +47,8 @@ bedtools maskfasta -fi Tgut_PTC_exon_sequences_v2.fasta -bed zero_coverage_YOURF
 bcftools mpileup -Ou -d 1000000 -f zero_masked_ref_YOURFILE.fas Mapped_YOURFILE.bam | bcftools call -Ou -mv | bcftools norm -Oz -f zero_masked_ref_YOURFILE.fas > normalized_calls_zero_masked_YOURFILE.zcf.gz
 bcftools index normalized_calls_zero_masked_YOURFILE.zcf.gz
 bcftools consensus -f zero_masked_ref_YOURFILE.fas normalized_calls_zero_masked_YOURFILE.zcf.gz > bcftools_consensus_zero_masked_YOURFILE.fas
-perl DE-interleave_this_fasta.pl bcftools_consensus_zero_masked_YOURFILE.fas >bcftools_consensus_zero_masked_YOURFILE-F.fas
 module load python/2.7
-python depth_of_coverage_impl2.py -b Sorted_YOURFILE.bam -o Depth_stats_YOURFILE.csv -t	    
+python depth_of_coverage_impl2.py -b Sorted_YOURFILE.bam -o Depth_stats_YOURFILE.csv -t
 
 
 ## Alignment:	MASCE v2.03
