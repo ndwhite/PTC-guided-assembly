@@ -55,7 +55,7 @@ Altered from Ryan Schott's script (Schott RK, et al. 2017. Targeted capture of c
 
 
 ## Alignment:	MASCE v2.03
-First, de-interleave contigs (with something like DE-interleave_this_fasta.pl). Then do the following several steps:
+If wanted, concatenate exons into CDS (with something like Cat_exons_to_CDS.pl). Then, de-interleave contigs (with something like DE-interleave_this_fasta.pl). Then do the following several steps:
 
 Align SAG seqs --seq = reference seq (more reliable), --seq-lr = our sequences
 
