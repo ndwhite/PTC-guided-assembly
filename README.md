@@ -1,5 +1,5 @@
 # PTC-guided-assembly
-Guided assembly pipeline for phototransduction cascade probe set work. ADD REFERENCE.
+Guided assembly pipeline for phototransduction cascade probe set work. IN REVIEW.
 
 "Swarm" commands are for a slurm hpc manager, but give you an idea of resources needed.
 
