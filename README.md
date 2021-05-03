@@ -37,7 +37,7 @@ Map paired-end reads:
     bwa mem Chicken SAMPLE_R1-trimmed.fastq.gz SAMPLE_R2-trimmed.fastq.gz -B 8 > SAMPLE_Chicken.sam
 
 
-## Masking and creating contigs:	Samtools v1.10; Bedtools v2.29.2
+## Masking and creating contigs:	Samtools v1.11; Bedtools v2.29.2
 Altered from Ryan Schott's script (Schott RK, et al. 2017. Targeted capture of complete coding regions across divergent species. Genome Biology and Evolution 9: 398–414).
 
     module load samtools/1.11
