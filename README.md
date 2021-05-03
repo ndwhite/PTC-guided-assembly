@@ -38,20 +38,21 @@ Map paired-end reads:
 
 
 ## Masking and creating contigs:	Samtools v1.10; Bedtools v2.29.2
-Altered from Ryan Schott's script (Schott RK, et al. 2017. Targeted capture of complete coding regions across divergent species. Genome Biology and Evolution 9: 398–414.). Need to have both "python depth_of_coverage_impl2.py" and "depth_of_coverage.py" in the same spot.
+Altered from Ryan Schott's script (Schott RK, et al. 2017. Targeted capture of complete coding regions across divergent species. Genome Biology and Evolution 9: 398–414).
 
-    module load samtools/1.10
+    module load samtools/1.11
     module load bedtools/2.29.2
-    samtools sort -O bam -o Sorted_SAMPLE_Ggal_exon.bam SAMPLE_Ggal_exon.sam
-    samtools view -b -F 4 Sorted_SAMPLE_Ggal_exon.bam > Mapped_SAMPLE_Ggal_exon.bam
-    samtools depth -aa -d 1000000 Sorted_SAMPLE_Ggal_exon.bam > depth_SAMPLE_Ggal_exon.txt
-    cat depth_SAMPLE_Ggal_exon.txt | awk '\$3==0 {print}' | awk -v OFS='\\t' '{print \$1,int(\$2)-1,\$2}' > zero_coverage_SAMPLE_Ggal_exon.bed
-    bedtools maskfasta -fi Ggal_reference_exon_sequences.fasta -bed zero_coverage_SAMPLE_Ggal_exon.bed -fo zero_masked_ref_SAMPLE_Ggal_exon.fas
-    bcftools mpileup -Ou -d 1000000 -f zero_masked_ref_SAMPLE_Ggal_exon.fas Mapped_SAMPLE_Ggal_exon.bam | bcftools call -Ou -mv | bcftools norm -Oz -f zero_masked_ref_SAMPLE_Ggal_exon.fas > normalized_calls_zero_masked_SAMPLE_Ggal_exon.zcf.gz
-    bcftools index normalized_calls_zero_masked_SAMPLE_Ggal_exon.zcf.gz
-    bcftools consensus -f zero_masked_ref_SAMPLE_Ggal_exon.fas normalized_calls_zero_masked_SAMPLE_Ggal_exon.zcf.gz > bcftools_consensus_zero_masked_SAMPLE_Ggal_exon.fas
-    module load python/2.7
-    python depth_of_coverage_impl2.py -b Sorted_SAMPLE_Ggal_exon.bam -o Depth_stats_SAMPLE_Ggal_exon.csv -t
+    samtools sort -O bam -o Sorted_SAMPLE_Chicken_8string.bam SAMPLE_Chicken_8string.sam
+    samtools view -b -F 260 Sorted_SAMPLE_Chicken_8string.bam > Mapped_SAMPLE_Chicken_8string.bam
+    samtools depth -aa -d 1000000 Sorted_SAMPLE_Chicken_8string.bam > depth_SAMPLE_Chicken_8string.txt
+    cat depth_SAMPLE_Chicken_8string.txt | awk '$3==0 {print}' | awk -v OFS='\t' '{print $1,int($2)-1,$2}' > zero_coverage_SAMPLE_Chicken_8string.bed
+    bedtools maskfasta -fi Chicken_exome_with_decoys.fa -bed zero_coverage_SAMPLE_Chicken_8string.bed -fo zero_masked_ref_SAMPLE_Chicken_8string.fas
+    bcftools mpileup -Ou -d 1000000 -f zero_masked_ref_SAMPLE_Chicken_8string.fas Mapped_SAMPLE_Chicken_8string.bam | bcftools call -Ou -mv | bcftools norm -Oz -f zero_masked_ref_SAMPLE_Chicken_8string.fas > normalized_calls_zero_masked_SAMPLE_Chicken_8string.zcf.gz
+    bcftools index normalized_calls_zero_masked_SAMPLE_Chicken_8string.zcf.gz
+    bcftools consensus -f zero_masked_ref_SAMPLE_Chicken_8string.fas normalized_calls_zero_masked_SAMPLE_Chicken_8string.zcf.gz >   bcftools_consensus_zero_masked_SAMPLE_Chicken_8string.fas
+    module load python/3.7
+    python depth_of_coverage_fast.py -t depth_SAMPLE_Chicken_8string.txt -o  Depth_stats_SAMPLE_Chicken_8string_FAST.csv 
+
 
 
 ## Alignment:	MASCE v2.03
