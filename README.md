@@ -1,7 +1,5 @@
 # PTC-guided-assembly
-Guided assembly pipeline for phototransduction cascade probe set work. IN REVIEW.
-
-"Swarm" commands are for a slurm hpc manager, but give you an idea of resources needed.
+Guided assembly pipeline for phototransduction cascade probe set work. IN REVIEW. Decoy sequences needed--this is a very large file and we are working on finding a host for it. "Swarm" commands are for a slurm hpc manager, but give you an idea of resources needed.
 
 ## Trimming:	Trimmomatic v0.39
 I toss unpaired reads, but you could use them.
