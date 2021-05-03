@@ -24,17 +24,17 @@ Then, remove whitespace from headers.
 First create index:
 
     #swarm --module bwa/0.7.17 --partition=quick -f index.sh
-    bwa index -p Ggal_PTC_exon Ggal_reference_exon_sequences.fasta
+    bwa index -p Chicken Chicken_exome_with_decoys.fa
 
 Map single-end reads:
 
     #swarm --module bwa/0.7.17 --partition=quick,norm -f BWA.sh
-    bwa mem Ggal_PTC_exon SAMPLE-trimmed.fastq.gz -B 2 > SAMPLE-trimmed_Ggal_exon.sam
+    bwa mem Chicken SAMPLE-trimmed.fastq.gz -B 8 > SAMPLE_Chicken.sam
 
 Map paired-end reads:
 
     #swarm --module bwa/0.7.17 --partition=quick,norm -f BWA.sh
-    bwa mem Ggal_PTC_exon SAMPLE_R1-trimmed.fastq.gz SAMPLE_R2-trimmed.fastq.gz -B 2 > SAMPLE_Ggal_exon.sam
+    bwa mem Chicken SAMPLE_R1-trimmed.fastq.gz SAMPLE_R2-trimmed.fastq.gz -B 8 > SAMPLE_Chicken.sam
 
 
 ## Masking and creating contigs:	Samtools v1.10; Bedtools v2.29.2
@@ -42,16 +42,16 @@ Altered from Ryan Schott's script (Schott RK, et al. 2017. Targeted capture of c
 
     module load samtools/1.11
     module load bedtools/2.29.2
-    samtools sort -O bam -o Sorted_SAMPLE_Chicken_8string.bam SAMPLE_Chicken_8string.sam
-    samtools view -b -F 260 Sorted_SAMPLE_Chicken_8string.bam > Mapped_SAMPLE_Chicken_8string.bam
-    samtools depth -aa -d 1000000 Sorted_SAMPLE_Chicken_8string.bam > depth_SAMPLE_Chicken_8string.txt
-    cat depth_SAMPLE_Chicken_8string.txt | awk '$3==0 {print}' | awk -v OFS='\t' '{print $1,int($2)-1,$2}' > zero_coverage_SAMPLE_Chicken_8string.bed
-    bedtools maskfasta -fi Chicken_exome_with_decoys.fa -bed zero_coverage_SAMPLE_Chicken_8string.bed -fo zero_masked_ref_SAMPLE_Chicken_8string.fas
-    bcftools mpileup -Ou -d 1000000 -f zero_masked_ref_SAMPLE_Chicken_8string.fas Mapped_SAMPLE_Chicken_8string.bam | bcftools call -Ou -mv | bcftools norm -Oz -f zero_masked_ref_SAMPLE_Chicken_8string.fas > normalized_calls_zero_masked_SAMPLE_Chicken_8string.zcf.gz
-    bcftools index normalized_calls_zero_masked_SAMPLE_Chicken_8string.zcf.gz
-    bcftools consensus -f zero_masked_ref_SAMPLE_Chicken_8string.fas normalized_calls_zero_masked_SAMPLE_Chicken_8string.zcf.gz >   bcftools_consensus_zero_masked_SAMPLE_Chicken_8string.fas
+    samtools sort -O bam -o Sorted_SAMPLE_Chicken.bam SAMPLE_Chicken.sam
+    samtools view -b -F 260 Sorted_SAMPLE_Chicken.bam > Mapped_SAMPLE_Chicken.bam
+    samtools depth -aa -d 1000000 Sorted_SAMPLE_Chicken.bam > depth_SAMPLE_Chicken.txt
+    cat depth_SAMPLE_Chicken.txt | awk '$3==0 {print}' | awk -v OFS='\t' '{print $1,int($2)-1,$2}' > zero_coverage_SAMPLE_Chicken.bed
+    bedtools maskfasta -fi Chicken_exome_with_decoys.fa -bed zero_coverage_SAMPLE_Chicken.bed -fo zero_masked_ref_SAMPLE_Chicken.fas
+    bcftools mpileup -Ou -d 1000000 -f zero_masked_ref_SAMPLE_Chicken.fas Mapped_SAMPLE_Chicken.bam | bcftools call -Ou -mv | bcftools norm -Oz -f zero_masked_ref_SAMPLE_Chicken.fas > normalized_calls_zero_masked_SAMPLE_Chicken.zcf.gz
+    bcftools index normalized_calls_zero_masked_SAMPLE_Chicken.zcf.gz
+    bcftools consensus -f zero_masked_ref_SAMPLE_Chicken.fas normalized_calls_zero_masked_SAMPLE_Chicken.zcf.gz >   bcftools_consensus_zero_masked_SAMPLE_Chicken.fas
     module load python/3.7
-    python depth_of_coverage_fast.py -t depth_SAMPLE_Chicken_8string.txt -o  Depth_stats_SAMPLE_Chicken_8string_FAST.csv 
+    python depth_of_coverage_fast.py -t depth_SAMPLE_Chicken.txt -o  Depth_stats_SAMPLE_Chicken_FAST.csv 
 
 
 
