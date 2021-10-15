@@ -1,5 +1,5 @@
 # PTC-guided-assembly
-Guided assembly pipeline for phototransduction cascade probe set work. Publication titled "A novel exome probe set captures phototransduction genes across birds (Aves) enabling efficient analysis of vision evolution." Published in Molecular Ecology Resources, and available here: https://onlinelibrary.wiley.com/doi/full/10.1111/1755-0998.13496. Decoy sequences available here: 10.5281/zenodo.4734556. In order to create hte species-specific references, need to concatenate the decoy sequences with the species references included here. "Swarm" commands are for a slurm hpc manager, but give you an idea of resources needed.
+Guided assembly pipeline for phototransduction cascade probe set work. Publication titled "A novel exome probe set captures phototransduction genes across birds (Aves) enabling efficient analysis of vision evolution." Published in Molecular Ecology Resources, and available here: https://onlinelibrary.wiley.com/doi/full/10.1111/1755-0998.13496. Decoy sequences available here: https://zenodo.org/record/4734556. In order to create the species-specific references, need to concatenate the decoy sequences with the species references included here. "Swarm" commands are for a slurm hpc manager, but give you an idea of resources needed.
 
 ## Trimming:	Trimmomatic v0.39
 I toss unpaired reads, but you could use them.
